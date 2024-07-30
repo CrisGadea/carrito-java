@@ -9,7 +9,6 @@ public class Usuario {
     private boolean activo;
 
     public Usuario(String username, String password, String categoria, boolean activo, String email) {
-        super();
         this.username = username;
         this.password = password;
         this.categoria = categoria;
@@ -17,9 +16,7 @@ public class Usuario {
         this.email = email;
     }
 
-    public Usuario() {
-        super();
-    }
+    public Usuario() {}
 
     public int getId() {
         return id;

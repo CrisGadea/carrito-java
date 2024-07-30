@@ -3,9 +3,8 @@ package com.edu.unlz.tienda.daos;
 import com.edu.unlz.tienda.fabricas.Conexion;
 import com.edu.unlz.tienda.modelos.Producto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoDAO implements DAO<Producto> {
@@ -56,8 +55,21 @@ public class ProductoDAO implements DAO<Producto> {
 
         @Override
         public List<Producto> getAll() throws SQLException {
-            // TODO Auto-generated method stub
-            return null;
+            Connection connection = Conexion.getConexion();
+            List<Producto> productos = new ArrayList<>();
+            String query = "select * from productos";
+            try (Statement stmt = connection.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+                    Producto producto = new Producto();
+                    producto.setId(rs.getInt("id"));
+                    producto.setNombre(rs.getString("nombre"));
+                    producto.setPrecio(rs.getDouble("precio"));
+                    producto.setDescripcion(rs.getString("descripcion"));
+                    productos.add(producto);
+                }
+            }
+            return productos;
         }
 
 }

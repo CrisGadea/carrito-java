@@ -33,15 +33,6 @@ public class RegistroServlet extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String email = request.getParameter("email");
 
-//        try {
-//            if (udao.existsUsername(username)) {
-//                response.sendError(500, "Ya existe el usuario");
-//                return;
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-
         Usuario usuario = new Usuario(username, password, categoria, activo, email);
 
         try {

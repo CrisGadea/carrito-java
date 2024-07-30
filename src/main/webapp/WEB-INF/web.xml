@@ -23,12 +23,21 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
+<!--  <servlet>-->
+<!--    <servlet-name>homeServlet</servlet-name>-->
+<!--    <servlet-class>com.edu.unlz.tienda.controladores.HomeServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>homeServlet</servlet-name>-->
+<!--    <url-pattern>/home</url-pattern>-->
+<!--  </servlet-mapping>-->
+
   <servlet>
-    <servlet-name>homeServlet</servlet-name>
-    <servlet-class>com.edu.unlz.tienda.controladores.HomeServlet</servlet-class>
+    <servlet-name>productoServlet</servlet-name>
+    <servlet-class>com.edu.unlz.tienda.controladores.ProductoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>homeServlet</servlet-name>
+    <servlet-name>productoServlet</servlet-name>
     <url-pattern>/home</url-pattern>
   </servlet-mapping>
 

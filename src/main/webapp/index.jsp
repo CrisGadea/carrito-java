@@ -1,24 +1,3 @@
-<%--
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tienda Bicampeones de America</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body class="bg-primary">
-    <h1 class="text-white">Vamos la Scaloneta papa!</h1>
-
-    <a class="text-white" href="./vistas/usuario/login.jsp">Ingresar</a>
-    <a class="text-white" href="./vistas/usuario/registro.jsp">Registrarse</a>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-</body>
-</html>
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,15 +32,15 @@
                 <% if (session.getAttribute("usuario") != null) {%>
                 <li class="nav-item"><a class="nav-link" href="vistas/usuario/login.jsp">Cerrar Sesion</a></li>
                 <%}%>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                    </ul>
-                </li>
+<%--                <li class="nav-item dropdown">--%>
+<%--                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>--%>
+<%--                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
+<%--                        <li><a class="dropdown-item" href="#!">All Products</a></li>--%>
+<%--                        <li><hr class="dropdown-divider" /></li>--%>
+<%--                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>--%>
+<%--                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>--%>
+<%--                    </ul>--%>
+<%--                </li>--%>
             </ul>
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
@@ -82,209 +61,245 @@
         </div>
     </div>
 </header>
+<%--<!-- Section-->--%>
+<%--<section class="py-5">--%>
+<%--    <div class="container px-4 px-lg-5 mt-5">--%>
+<%--        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Fancy Product</h5>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            $40.00 - $80.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Sale badge-->--%>
+<%--                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">${producto.getNombre()}</h5>--%>
+<%--                            <!-- Product reviews-->--%>
+<%--                            <div class="d-flex justify-content-center small text-warning mb-2">--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                            </div>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            <span class="text-muted text-decoration-line-through">$20.00</span>--%>
+<%--                            $18.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Sale badge-->--%>
+<%--                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Sale Item</h5>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            <span class="text-muted text-decoration-line-through">$50.00</span>--%>
+<%--                            $25.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Popular Item</h5>--%>
+<%--                            <!-- Product reviews-->--%>
+<%--                            <div class="d-flex justify-content-center small text-warning mb-2">--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                            </div>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            $40.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Sale badge-->--%>
+<%--                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Sale Item</h5>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            <span class="text-muted text-decoration-line-through">$50.00</span>--%>
+<%--                            $25.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Fancy Product</h5>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            $120.00 - $280.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Sale badge-->--%>
+<%--                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Special Item</h5>--%>
+<%--                            <!-- Product reviews-->--%>
+<%--                            <div class="d-flex justify-content-center small text-warning mb-2">--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                            </div>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            <span class="text-muted text-decoration-line-through">$20.00</span>--%>
+<%--                            $18.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col mb-5">--%>
+<%--                <div class="card h-100">--%>
+<%--                    <!-- Product image-->--%>
+<%--                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />--%>
+<%--                    <!-- Product details-->--%>
+<%--                    <div class="card-body p-4">--%>
+<%--                        <div class="text-center">--%>
+<%--                            <!-- Product name-->--%>
+<%--                            <h5 class="fw-bolder">Popular Item</h5>--%>
+<%--                            <!-- Product reviews-->--%>
+<%--                            <div class="d-flex justify-content-center small text-warning mb-2">--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                                <div class="bi-star-fill"></div>--%>
+<%--                            </div>--%>
+<%--                            <!-- Product price-->--%>
+<%--                            $40.00--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <!-- Product actions-->--%>
+<%--                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">--%>
+<%--                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</section>--%>
+
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Fancy Product</h5>
-                            <!-- Product price-->
-                            $40.00 - $80.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">${producto.getNombre()}</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
+            <c:forEach var="producto" items="${productos}">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://avellanedahoy.com.ar/uploads/noticias/5/2024/03/20240320074503_camiseta.png" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">${producto.nombre}</h5>
+                                <!-- Product price-->
+                                <span>$${producto.precio}</span>
                             </div>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$20.00</span>
-                            $18.00
                         </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Sale Item</h5>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$50.00</span>
-                            $25.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Popular Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <form action="#" method="post">
+                                    <input type="hidden" name="accion" value="agregar">
+                                    <input type="hidden" name="idProducto" value="${producto.id}">
+                                    <button class="btn btn-outline-dark mt-auto" type="submit">Agregar a carrito</button>
+                                </form>
                             </div>
-                            <!-- Product price-->
-                            $40.00
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
                 </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Sale Item</h5>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$50.00</span>
-                            $25.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Fancy Product</h5>
-                            <!-- Product price-->
-                            $120.00 - $280.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Special Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                            </div>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$20.00</span>
-                            $18.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Popular Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                            </div>
-                            <!-- Product price-->
-                            $40.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar a carrito</a></div>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </div>
 </section>
+
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Matias Quijano 2024</p></div>
