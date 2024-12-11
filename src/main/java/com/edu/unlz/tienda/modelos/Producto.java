@@ -1,5 +1,7 @@
 package com.edu.unlz.tienda.modelos;
 
+import java.util.Objects;
+
 public class Producto {
     public int id;
     public String nombre;
@@ -14,6 +16,19 @@ public class Producto {
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return getId() == producto.getId() && Double.compare(getPrecio(), producto.getPrecio()) == 0 && getStock() == producto.getStock() && Objects.equals(getNombre(), producto.getNombre()) && Objects.equals(getDescripcion(), producto.getDescripcion());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNombre(), getDescripcion(), getPrecio(), getStock());
     }
 
     public int getId() {

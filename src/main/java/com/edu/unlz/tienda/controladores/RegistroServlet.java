@@ -50,7 +50,7 @@ public class RegistroServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        response.sendRedirect("login");
+        response.sendRedirect("/tp_final_war_exploded/vistas/usuario/login.jsp");
     }
 
 }
