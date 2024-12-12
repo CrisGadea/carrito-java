@@ -105,7 +105,6 @@ public class CarritoServlet extends HttpServlet {
 
         // Enviar la lista de productos del carrito a la vista
         session.setAttribute("productosCarrito", productosCarrito);
-
         request.setAttribute("productosCarrito", productosCarrito);
         // Redirigir a la vista del carrito
         response.sendRedirect(request.getContextPath() + "/index.jsp");

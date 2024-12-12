@@ -16,9 +16,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray text-secondary">
-<h1 class="text-center">Iniciar sesion</h1>
+<h1 class="text-center mt-2">Iniciar sesion</h1>
 
-<form action="../../login" method="post">
+<form action="../../login" method="post" class="container">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email</label>
         <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -28,10 +28,10 @@
         <label for="exampleInputPassword1" class="form-label">Contrasena</label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword1">
     </div>
-    <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+    <button type="submit" class="btn btn-success">Iniciar Sesion</button>
+    <a type="button" class="btn btn-light text-bg-dark m-1" href="./registro.jsp">Ir a Registrarse</a>
 </form>
 
-<a href="./registro.jsp">Ir a Registrarse</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

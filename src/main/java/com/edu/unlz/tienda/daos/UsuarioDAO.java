@@ -57,7 +57,7 @@ public class UsuarioDAO implements DAO<Usuario> {
 		query += " from usuarios";
 		query += " where username = ?"; */
 
-        String query = "select u.username, u.password, u.activo, u.categoria, u.email";
+        String query = "select u.id,u.username, u.password, u.activo, u.categoria, u.email";
         query += " from usuarios u";
         query += " where u.email = ?";
 
@@ -74,6 +74,7 @@ public class UsuarioDAO implements DAO<Usuario> {
             usuario.setActivo(rs.getInt("activo") == 1);
             usuario.setCategoria(rs.getInt("categoria") == 1 ? "empleado" : "cliente");
             usuario.setEmail(rs.getString("email"));
+            usuario.setId(rs.getInt("id"));
         }
 
         return usuario;

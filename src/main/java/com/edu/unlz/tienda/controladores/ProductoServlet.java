@@ -24,16 +24,16 @@ public class ProductoServlet extends HttpServlet {
             throws ServletException, IOException {
         var session = request.getSession();
 
-
+        System.out.println("pasa por get productos");
         // Solo cargar productos si no están en la sesión
-        if (session.getAttribute("productos") == null) {
+
             try {
                 var productos = pdao.getAll();
                 session.setAttribute("productos", productos);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }
+
 
         // Redirigir o reenviar al index.jsp
         var rd = request.getRequestDispatcher("index.jsp");

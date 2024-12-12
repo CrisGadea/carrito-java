@@ -14,7 +14,7 @@ public class OrdenProductoDAO implements DAO<OrdenProducto> {
         Connection conn = Conexion.getConexion();
 
         String query = "INSERT INTO Orden_Producto (id_orden, id_producto, cantidad,precio)";
-        query += " VALUES (?, ?, ?)";
+        query += " VALUES (?, ?, ?,?)";
 
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, ordenProducto.getIdOrden()); // ID de la orden
@@ -22,8 +22,6 @@ public class OrdenProductoDAO implements DAO<OrdenProducto> {
         ps.setInt(3, ordenProducto.getCantidad()); // Cantidad comprada
         ps.setDouble(4, ordenProducto.getPrecio()); // Precio del producto
         ps.executeUpdate();
-
-
     }
 
     @Override

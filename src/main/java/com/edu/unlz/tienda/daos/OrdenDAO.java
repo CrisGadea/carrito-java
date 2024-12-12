@@ -14,15 +14,14 @@ public class OrdenDAO implements DAO<Orden> {
     public void insert(Orden orden) throws SQLException {
         Connection conn = Conexion.getConexion();
 
-        String query = "INSERT INTO Orden (fecha, total, estado, id_usuario)";
-        query += " VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Orden (fecha, total, Orden.usuario_id)";
+        query += " VALUES (?, ?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 
         ps.setString(1, orden.getFecha());
         ps.setDouble(2, orden.getTotal());
-        ps.setString(3, orden.getEstado());
-        ps.setInt(4, orden.getIdUsuario());
+        ps.setInt(3, orden.getIdUsuario());
 
         ps.executeUpdate();
 

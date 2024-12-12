@@ -30,13 +30,12 @@ public class CompraServlet extends HttpServlet {
         this.ordenProductoDAO = new OrdenProductoDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
         // Obtener el carrito de la sesión (lista de productos)
         List<ProductoCarrito> carrito = (ArrayList<ProductoCarrito>) session.getAttribute("productosCarrito");
-
         if (carrito == null || carrito.isEmpty()) {
             // Si el carrito está vacío, redirigir al usuario con un mensaje de error
             request.setAttribute("error", "El carrito está vacío. Agrega productos antes de comprar.");
@@ -48,9 +47,8 @@ public class CompraServlet extends HttpServlet {
         Orden nuevaOrden = new Orden();
         nuevaOrden.setFecha(java.time.LocalDate.now().toString()); // Fecha actual
         nuevaOrden.setTotal(calcularTotal(carrito)); // Calcular total del carrito
-        nuevaOrden.setEstado("PENDIENTE");
         nuevaOrden.setIdUsuario((int) session.getAttribute("idUsuario")); // Obtener ID del usuario desde la sesión
-
+        System.out.println("usuario es: " + session.getAttribute("idUsuario"));
         try {
             // Insertar la orden en la base de datos
             ordenDAO.insert(nuevaOrden);
@@ -73,14 +71,15 @@ public class CompraServlet extends HttpServlet {
             session.removeAttribute("productosCarrito");
 
             // Redirigir al usuario a la página de confirmación
-            request.setAttribute("mensaje", "Compra realizada con éxito. Orden ID: " + nuevaOrden.getId());
-            request.getRequestDispatcher("confirmacion.jsp").forward(request, response);
+            request.setAttribute("mensaje", "Compra realizada con éxito. Número de Orden : " + nuevaOrden.getId());
+            session.setAttribute("totalCantidad", 0);
+            request.getRequestDispatcher("vistas/compra/confirmacion.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();
             // En caso de error, redirigir con un mensaje de error
             request.setAttribute("error", "Hubo un problema al procesar la compra. Inténtalo de nuevo.");
-            request.getRequestDispatcher("carrito.jsp").forward(request, response);
+            request.getRequestDispatcher("vistas/carrito/carrito.jsp").forward(request, response);
         }
     }
 

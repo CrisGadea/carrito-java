@@ -1,12 +1,14 @@
 package com.edu.unlz.tienda.controladores;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -14,6 +16,6 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         var session = request.getSession();
         session.invalidate();
-        response.sendRedirect("login");
+        response.sendRedirect("vistas/usuario/login.jsp");
     }
 }

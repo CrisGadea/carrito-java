@@ -74,7 +74,7 @@
     </div>
     <!-- Formulario para proceder con la compra -->
 <%--    <form action="<%=request.getContextPath() + "/procesarCompra"%>" method="POST" class="mt-4">--%>
-    <button type="button" class="btn btn-primary" onclick="alert('Se ha procesado la compra con exito.')">Proceder a la compra</button>
+    <button type="button" class="btn btn-primary"  onclick="window.location.href='./comprar'">Proceder a la compra</button>
 <%--    </form>--%>
     <% } %>
 
