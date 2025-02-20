@@ -8,14 +8,16 @@ public class Producto {
     public String descripcion;
     public double precio;
     public int stock;
+    public String urlImg;
 
     public Producto() {}
 
-    public Producto(String nombre, String descripcion, double precio, int stock) {
+    public Producto(String nombre, String descripcion, double precio, int stock, String urlImg) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
+        this.urlImg = urlImg;
     }
 
     @Override
@@ -69,6 +71,13 @@ public class Producto {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 
 

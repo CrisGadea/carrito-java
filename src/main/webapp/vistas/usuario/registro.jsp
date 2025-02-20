@@ -27,7 +27,7 @@
             <option value=true>Activo</option>
             <option value=false>No Activo</option>
         </select>
-        <select class="c" name="categoria">
+        <select class="c" name="rolId">
             <option value="1">Empleado</option>
             <option value="2">Cliente</option>
         </select>

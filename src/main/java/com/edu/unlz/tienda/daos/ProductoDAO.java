@@ -17,8 +17,8 @@ public class ProductoDAO implements DAO<Producto> {
             Connection conn = Conexion.getConexion();
 
             String query = "insert into productos";
-            query += " (nombre, descripcion, precio, stock)";
-            query += " values (?,?,?,?)";
+            query += " (nombre, descripcion, precio, stock,url)";
+            query += " values (?,?,?,?,?)";
 
             PreparedStatement ps = conn.prepareStatement(query);
 
@@ -26,6 +26,7 @@ public class ProductoDAO implements DAO<Producto> {
             ps.setString(2, producto.getDescripcion());
             ps.setDouble(3, producto.getPrecio());
             ps.setInt(4, producto.getStock());
+            ps.setString(5, producto.getUrlImg());
 
             ps.executeUpdate();
 
@@ -47,7 +48,22 @@ public class ProductoDAO implements DAO<Producto> {
 
         public Producto getByNombre(String nombre) throws SQLException {
             // TODO Auto-generated method stub
-            return null;
+            Connection conn = Conexion.getConexion();
+            String query = "select * from productos where nombre = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            Producto producto=null;
+            ps.setString(1, nombre);
+            var resultSet=ps.executeQuery();
+            if (resultSet.next()){
+                producto=new Producto();
+                producto.setId(resultSet.getInt("id"));
+                producto.setNombre(resultSet.getString("nombre"));
+                producto.setDescripcion(resultSet.getString("descripcion"));
+                producto.setPrecio(resultSet.getDouble("precio"));
+                producto.setStock(resultSet.getInt("stock"));
+            }
+
+            return producto;
         }
 
         @Override
@@ -66,6 +82,7 @@ public class ProductoDAO implements DAO<Producto> {
                 producto.setDescripcion(resultSet.getString("descripcion"));
                 producto.setPrecio(resultSet.getDouble("precio"));
                 producto.setStock(resultSet.getInt("stock"));
+                producto.setUrlImg(resultSet.getString("url"));
             }
 
             return producto;
@@ -91,6 +108,7 @@ public class ProductoDAO implements DAO<Producto> {
                 producto.setDescripcion(resultSet.getString("descripcion"));
                 producto.setPrecio(resultSet.getDouble("precio"));
                 producto.setStock(resultSet.getInt("stock"));
+                producto.setUrlImg(resultSet.getString("url"));
                 productos.add(producto);
             }
 

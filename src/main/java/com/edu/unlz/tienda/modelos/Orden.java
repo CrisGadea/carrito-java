@@ -1,16 +1,18 @@
 package com.edu.unlz.tienda.modelos;
 
+import java.math.BigDecimal;
+
 public class Orden {
     private int id;
     private String fecha;
-    private double total;
+    private Double total;
     private String estado;
     private int idUsuario;
 
     public Orden() {
     }
 
-    public Orden(int id, String fecha, double total, String estado, int idUsuario) {
+    public Orden(int id, String fecha, Double total, String estado, int idUsuario) {
         this.id = id;
         this.fecha = fecha;
         this.total = total;
@@ -34,11 +36,11 @@ public class Orden {
         this.fecha = fecha;
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

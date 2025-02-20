@@ -1,7 +1,9 @@
 package com.edu.unlz.tienda.controladores;
 
+import com.edu.unlz.tienda.daos.CuentaDAO;
 import com.edu.unlz.tienda.daos.UsuarioDAO;
 import com.edu.unlz.tienda.fabricas.Dao;
+import com.edu.unlz.tienda.modelos.Cuenta;
 import com.edu.unlz.tienda.modelos.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -16,8 +18,11 @@ public class UsuarioServlet extends HttpServlet {
 
     private UsuarioDAO udao;
 
+    private CuentaDAO cdao;
+
     public UsuarioServlet() {
         this.udao = Dao.getUsuariosDAO();
+        this.cdao =new CuentaDAO();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,10 +74,27 @@ public class UsuarioServlet extends HttpServlet {
 
         try {
             Usuario usuario = udao.getByEmail(email);
+
             System.out.println("usuario es: " + usuario);
+            if (usuario == null) {
+                response.sendError(500, "Credenciales invalidas");
+                return;
+            }
+            if (usuario.getIdRol().equals(2L)){
+                session.setAttribute("saldo", 0.00);
+                System.out.println("saldo es: " + session.getAttribute("saldo"));
+           Cuenta cuenta=cdao.getByUserId(usuario.getId());
+           if (cuenta != null && cuenta.getSaldo().intValue()>0){
+            session.setAttribute("saldo", cuenta.getSaldo());
+            System.out.println("saldo es: " + session.getAttribute("saldo"));
+            session.setAttribute("idCuenta", cuenta.getId());
+               System.out.println("id cuenta es: " + session.getAttribute("idCuenta"));
+            }
+           }
+
             // Si el usuario existe y la clave es correcta se guarda en la sesion los datos requeridos
             session.setAttribute("username", usuario.getUsername());
-            session.setAttribute("categoria", usuario.getCategoria());
+            session.setAttribute("rolId", usuario.getIdRol());
             session.setAttribute("email", usuario.getEmail());
             session.setAttribute("activo", usuario.isActivo());
             session.setAttribute("idUsuario", usuario.getId());

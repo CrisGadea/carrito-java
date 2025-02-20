@@ -14,7 +14,7 @@ public class OrdenDAO implements DAO<Orden> {
     public void insert(Orden orden) throws SQLException {
         Connection conn = Conexion.getConexion();
 
-        String query = "INSERT INTO Orden (fecha, total, Orden.usuario_id)";
+        String query = "INSERT INTO Orden (fecha_creacion, total, Orden.usuario_id)";
         query += " VALUES (?, ?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);

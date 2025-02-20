@@ -17,7 +17,7 @@ public class UsuarioDAO implements DAO<Usuario> {
         Connection conn = Conexion.getConexion();
 
         String query = "insert into usuarios";
-        query += " (username, password, activo, email, categoria)";
+        query += " (username, password, activo, email, rol_id)";
         query += " values (?,?,?,?,?)";
 
         PreparedStatement ps = conn.prepareStatement(query);
@@ -26,7 +26,7 @@ public class UsuarioDAO implements DAO<Usuario> {
         ps.setString(2, usuario.getPassword());
         ps.setInt(3, usuario.isActivo() ? 1 : 0);
         ps.setString(4, usuario.getEmail());
-        ps.setString(5, usuario.getCategoria());
+        ps.setLong(5, usuario.getIdRol());
 
         ps.executeUpdate();
 
@@ -57,7 +57,7 @@ public class UsuarioDAO implements DAO<Usuario> {
 		query += " from usuarios";
 		query += " where username = ?"; */
 
-        String query = "select u.id,u.username, u.password, u.activo, u.categoria, u.email";
+        String query = "select u.id,u.username, u.password, u.activo,u.rol_id, u.email";
         query += " from usuarios u";
         query += " where u.email = ?";
 
@@ -72,10 +72,11 @@ public class UsuarioDAO implements DAO<Usuario> {
             usuario.setUsername(rs.getString("username"));
             usuario.setPassword(rs.getString("password"));
             usuario.setActivo(rs.getInt("activo") == 1);
-            usuario.setCategoria(rs.getInt("categoria") == 1 ? "empleado" : "cliente");
+            usuario.setIdRol(rs.getLong("rol_id"));
             usuario.setEmail(rs.getString("email"));
             usuario.setId(rs.getInt("id"));
         }
+        System.out.println("usuario de bd es: " + usuario + " email: " + email);
 
         return usuario;
 
@@ -104,7 +105,7 @@ public class UsuarioDAO implements DAO<Usuario> {
             usuario.setUsername(rs.getString("username"));
             usuario.setPassword(rs.getString("password"));
             usuario.setActivo(rs.getInt("activo") == 1);
-            usuario.setCategoria(rs.getString("categoria"));
+            usuario.setIdRol(rs.getLong("idRol"));
             usuario.setEmail(rs.getString("email"));
         }
 

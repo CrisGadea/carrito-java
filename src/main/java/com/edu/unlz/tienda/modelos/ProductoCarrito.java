@@ -7,16 +7,18 @@ public class ProductoCarrito {
     private String nombre;
     private int cantidad;
     private double precio;
+    private String urlImagen;
 
     public ProductoCarrito() {
     }
 
 
-    public ProductoCarrito(int idProducto, String nombre, int cantidad, double precio) {
+    public ProductoCarrito(int idProducto, String nombre, int cantidad, double precio, String urlImagen) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
+        this.urlImagen = urlImagen;
     }
 
     public int getIdProducto() {
@@ -47,6 +49,14 @@ public class ProductoCarrito {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     @Override

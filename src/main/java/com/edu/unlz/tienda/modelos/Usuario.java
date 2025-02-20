@@ -5,16 +5,16 @@ public class Usuario {
     private String username;
     private String email;
     private String password;
-    private String categoria;
+    private Long idRol;
     private boolean activo;
 
-    public Usuario(String username, String password, String categoria, boolean activo, String email) {
+    public Usuario(String username, String password, boolean activo, String email,Long idRol) {
         super();
         this.username = username;
         this.password = password;
-        this.categoria = categoria;
         this.activo = activo;
         this.email = email;
+        this.idRol = idRol;
     }
 
     public Usuario() {
@@ -45,13 +45,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
 
     public boolean isActivo() {
         return activo;
@@ -67,6 +60,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getIdRol() {
+        return idRol;
+    }
+    public void setIdRol(Long idRol) {
+        this.idRol = idRol;
     }
 
     public boolean validarClave(String clave) {

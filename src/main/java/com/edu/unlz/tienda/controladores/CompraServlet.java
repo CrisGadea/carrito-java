@@ -1,10 +1,10 @@
 package com.edu.unlz.tienda.controladores;
 
+import com.edu.unlz.tienda.daos.CuentaDAO;
 import com.edu.unlz.tienda.daos.OrdenDAO;
 import com.edu.unlz.tienda.daos.OrdenProductoDAO;
-import com.edu.unlz.tienda.modelos.Orden;
-import com.edu.unlz.tienda.modelos.OrdenProducto;
-import com.edu.unlz.tienda.modelos.ProductoCarrito;
+import com.edu.unlz.tienda.daos.ProductoDAO;
+import com.edu.unlz.tienda.modelos.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,12 +22,16 @@ public class CompraServlet extends HttpServlet {
 
     private OrdenDAO ordenDAO;
     private OrdenProductoDAO ordenProductoDAO;
+    private CuentaDAO cuentaDAO;
+    private ProductoDAO productoDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         this.ordenDAO = new OrdenDAO();
         this.ordenProductoDAO = new OrdenProductoDAO();
+        this.cuentaDAO = new CuentaDAO();
+        this.productoDAO = new ProductoDAO();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,11 +66,22 @@ public class CompraServlet extends HttpServlet {
                     ordenProducto.setCantidad(producto.getCantidad());
                     ordenProducto.setPrecio(producto.getPrecio());
                     ordenProductoDAO.insert(ordenProducto);
-                } catch (SQLException e) {
+                    if(ordenProducto.getIdProducto()==producto.getIdProducto()){
+                        Producto producto1=productoDAO.getById(producto.getIdProducto());
+                        if (producto1.getStock()-producto.getCantidad()<0){
+                        producto1.setStock(producto1.getStock()-producto.getCantidad());
+                        productoDAO.update(producto1);
+                    }
+
+                } }catch (SQLException e) {
                     e.printStackTrace();
                 }
             });
-
+            Cuenta cuenta=cuentaDAO.getByUserId((int)session.getAttribute("idUsuario"));
+            if (cuenta!=null){
+                cuenta.setSaldo(cuenta.getSaldo()-nuevaOrden.getTotal());
+                cuentaDAO.update(cuenta);
+            }
             // Vaciar el carrito después de completar la compra
             session.removeAttribute("productosCarrito");
 

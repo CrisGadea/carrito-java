@@ -2,10 +2,12 @@ package com.edu.unlz.tienda.daos;
 
 import com.edu.unlz.tienda.fabricas.Conexion;
 import com.edu.unlz.tienda.modelos.OrdenProducto;
+import com.edu.unlz.tienda.modelos.Producto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrdenProductoDAO implements DAO<OrdenProducto> {
@@ -24,6 +26,7 @@ public class OrdenProductoDAO implements DAO<OrdenProducto> {
         ps.executeUpdate();
     }
 
+
     @Override
     public void update(OrdenProducto modelo) throws SQLException {
 
@@ -41,7 +44,24 @@ public class OrdenProductoDAO implements DAO<OrdenProducto> {
 
     @Override
     public List<OrdenProducto> getAll() throws SQLException {
-        return List.of();
+        Connection conn = Conexion.getConexion();
+        List<OrdenProducto> ordenProductos = new ArrayList<>();
+        String query = "SELECT * FROM Orden_Producto";
+        PreparedStatement ps = conn.prepareStatement(query);
+       var rs= ps.executeQuery();
+        while (rs.next()){
+            OrdenProducto ordenProducto=new OrdenProducto();
+            ordenProducto.setIdProducto(rs.getInt("id_producto"));
+            ordenProducto.setIdOrden(rs.getInt("id_orden"));
+            ordenProducto.setCantidad(rs.getInt("cantidad"));
+            ordenProducto.setPrecio(rs.getDouble("precio"));
+            ordenProductos.add(ordenProducto);
+        }
+
+        conn.close();
+        return ordenProductos;
     }
+
+
 
 }

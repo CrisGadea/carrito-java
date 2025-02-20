@@ -25,28 +25,45 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <%--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>--%>
-                <!-- if user is loged, show this tag -->
-                <% if (session.getAttribute("idUsuario") == null) {%>
+                <%-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> --%>
+                <%Long rolId = (Long) session.getAttribute("rolId");
+                    var nombreUsuario =session.getAttribute("username");
+                    var usuarioId = session.getAttribute("idUsuario");
+                %>
+                <!-- Si el usuario no está logueado, mostrar opciones de registro e inicio de sesión -->
+                <% if (usuarioId == null) { %>
                 <li class="nav-item"><a class="nav-link" href="vistas/usuario/registro.jsp">Registrarme</a></li>
                 <li class="nav-item"><a class="nav-link" href="vistas/usuario/login.jsp">Loguearme</a></li>
-                <%}%>
-                <!-- if user is not loged, show this tag -->
-                <% if (session.getAttribute("idUsuario") != null) {%>
-                <li class="nav-item"><a class="nav-link" href="logout">Cerrar Sesion</a></li>
-                <%}%>
+                <% } else { %>
+                <!-- Si el usuario está logueado, mostrar la opción de cerrar sesión -->
+                <li class="nav-item"><a class="nav-link" href="logout">Cerrar Sesión</a></li>
 
+                <!-- Si el rol no es 2 (administrador), mostrar botón de Crear Producto -->
+                <% if (rolId != 2L) { %>
+                <li class="nav-item"><a class="nav-link btn btn-primary" href="vistas/producto/crearProducto.jsp">Crear Producto</a></li>
+                <% } %>
+                <% } %>
             </ul>
-            <form class="d-flex" action="<%= request.getContextPath() + "/carrito?method=show" %>" method="GET">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Carrito
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">
-                        <!-- Obtener la cantidad de productos en el carrito -->
-                        <%= session.getAttribute("totalCantidad") != null ? session.getAttribute("totalCantidad") : 0 %>
-                    </span>
-                </button>
-            </form>
+
+            <div class="d-flex align-items-center">
+                <%-- Mostrar el nombre del usuario si es rolId == 2 y hacer que sea un link a su cuenta --%>
+                <% if (usuarioId != null && rolId == 2L) { %>
+                <a href="vistas/usuario/cuenta.jsp" class="nav-link me-3 fw-bold text-primary">
+                    <i class="bi bi-person-circle"></i> <%= nombreUsuario %>
+                </a>
+                <% } %>
+
+                <!-- Botón del carrito -->
+                <form class="d-flex" action="<%= request.getContextPath() + "/carrito?method=show" %>" method="GET">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi bi-cart-fill me-1"></i>
+                        Carrito
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">
+                    <%= session.getAttribute("totalCantidad") != null ? session.getAttribute("totalCantidad") : 0 %>
+                </span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
@@ -74,7 +91,7 @@
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Imagen del producto -->
-                    <img src="https://www.tienda-albiceleste.com/cdn/shop/products/CAMISETA-ARGENTINA-MESSI-3-ESTRELLAS-ADULTOS-2022-2023.jpg?v=1671492233">
+                    <img src="<%= producto.getUrlImg()%>">
                     <!-- Detalles del producto -->
                     <div class="card-body p-4">
                         <div class="text-center">
@@ -83,9 +100,22 @@
 
                             <!-- Precio del producto -->
                             $<%= producto.getPrecio() %>
+
                         </div>
+                        <% if(rolId!=null && rolId!=2L){%>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center" >
+                            <button class="btn btn-info ver-estadisticas"
+                                    data-product-id="<%= producto.getId() %>"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#verProductoModal">
+                                Ver
+                            </button>
+                        </div>
+                        <%}%>
+                        <!-- Descripción del producto -->
+
                     </div>
-                    <%if (session.getAttribute("idUsuario") != null) {%>
+                    <%if (session.getAttribute("idUsuario") != null && rolId==2l) {%>
                     <!-- Acción para agregar al carrito -->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center">
@@ -116,6 +146,25 @@
             %>
         </div>
     </div>
+
+    <!-- Modal de estadísticas (único, se llena dinámicamente) -->
+    <div class="modal fade" id="verProductoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Estadísticas del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Cantidad vendida:</strong> <span id="cantidadVendida">Cargando...</span></p>
+                    <p><strong>Total recaudado:</strong> $<span id="totalRecaudado">Cargando...</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
@@ -125,6 +174,39 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>
+<!-- JavaScript para cargar datos dinámicos -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".ver-estadisticas").forEach(button => {
+            button.addEventListener("click", function () {
+                const productId = this.getAttribute("data-product-id");
+                console.log('hola')
+                // Hacer una petición AJAX al backend para obtener los datos del producto
+                fetch("<%= request.getContextPath() %>/informes?id=" + productId)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Actualizar el modal con los datos recibidos
+                        document.getElementById("cantidadVendida").textContent = data.totalCantidad;
+                        document.getElementById("totalRecaudado").textContent = data.totalRecaudado;
+
+                        // Mostrar el modal
+                        let modal = new bootstrap.Modal(document.getElementById("verProductoModal"));
+                        modal.show();
+                    })
+                    .catch(error => console.error("Error al obtener estadísticas:", error));
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let modal = document.getElementById("verProductoModal");
+
+        modal.addEventListener("hidden.bs.modal", function () {
+            document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
+            document.body.classList.remove("modal-open"); // Eliminar clase de bloqueo
+            document.body.style.overflow = "auto"; // Permitir el scroll nuevamente
+        });
+    });
+</script>
 
 </body>
 </html>

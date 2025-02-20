@@ -30,8 +30,8 @@ public class RegistroServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean activo = request.getParameter("activo").equals("Si");
-        String categoria = request.getParameter("categoria");
         String email = request.getParameter("email");
+        Long idRol= Long.valueOf(request.getParameter("rolId"));
 
 //        try {
 //            if (udao.existsUsername(username)) {
@@ -42,7 +42,7 @@ public class RegistroServlet extends HttpServlet {
 //            throw new RuntimeException(e);
 //        }
 
-        Usuario usuario = new Usuario(username, password, categoria, activo, email);
+        Usuario usuario = new Usuario(username, password,activo, email,idRol);
 
         try {
             udao.insert(usuario);

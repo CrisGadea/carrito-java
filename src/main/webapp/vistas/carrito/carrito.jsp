@@ -31,7 +31,7 @@
         <!-- Card de Bootstrap para cada producto -->
         <div class="col-md-4 mb-4">
             <div class="card" style="width: 18rem;">
-                <img src="https://www.tienda-albiceleste.com/cdn/shop/products/CAMISETA-ARGENTINA-MESSI-3-ESTRELLAS-ADULTOS-2022-2023.jpg?v=1671492233"
+                <img src="../../<%=productoCarrito.getUrlImagen()%>"
                      class="card-img-top" alt="<%=productoCarrito.getNombre()%>">
                 <div class="card-body">
                     <h5 class="card-title"><%=productoCarrito.getNombre()%></h5>
