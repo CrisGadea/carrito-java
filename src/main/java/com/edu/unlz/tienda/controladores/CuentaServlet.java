@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Random;
 
 
@@ -24,9 +25,27 @@ public class CuentaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var session = req.getSession();
-
+        Cuenta cuenta = null;
         try {
-            var cuenta = cdao.getByUserId(Integer.parseInt(req.getParameter("usuarioId")));
+            cuenta = cdao.getByUserId(Integer.parseInt(req.getParameter("usuarioId")));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            if(req.getParameter("method").equals("extraer")){
+                var saldo = Double.parseDouble(req.getParameter("monto"));
+                Double saldoActual = Double.parseDouble(String.valueOf(session.getAttribute("saldo")));
+                if (cuenta != null) {
+                    System.out.println(saldoActual + " " + saldo);
+                    cuenta.setSaldo(saldoActual-saldo);
+                    cdao.update(cuenta);
+                    session.setAttribute("saldo", cuenta.getSaldo());
+                }
+
+                resp.sendRedirect("vistas/usuario/cuenta.jsp");
+                return;
+            }
+
             var saldo = Double.parseDouble(req.getParameter("saldo"));
             Double saldoActual = Double.parseDouble(String.valueOf(session.getAttribute("saldo")));
             if (cuenta != null) {

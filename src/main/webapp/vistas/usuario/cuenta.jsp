@@ -30,7 +30,11 @@
         Transferir
     </button>
 
-    <a href="historial.jsp" class="btn btn-info">Historial de Transacciones</a>
+    <!-- Botón para abrir el modal de extracción de dinero -->
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#extraerDineroModal">
+        Extraer
+    </button>
+    <button type="button" class="btn btn-danger" onclick="window.location.href='../../index.jsp'">Volver al Inicio</button>
 </div>
 
 <!-- Modal de ingreso de dinero -->
@@ -42,7 +46,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="../../cuentas" method="POST">
+                <form action="../../cuentas?method=ingresar" method="POST">
                     <div class="mb-3">
                         <label for="monto" class="form-label">Monto a ingresar:</label>
                         <input type="number" class="form-control" id="monto" name="saldo" min="1" step="0.01" required>
@@ -70,12 +74,7 @@
                 <form action="../../transferir" method="POST">
                     <div class="mb-3">
                         <label for="montoTransferencia" class="form-label">Monto a transferir:</label>
-                        <input type="number" class="form-control" id="montoTransferencia" name="monto" min="1" max=<%=saldoCuenta%> step="0.01" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cbuDestino" class="form-label">CBU de destino:</label>
-                        <input type="text" class="form-control" id="cbuDestino" name="cbuDestino" minlength="22" maxlength="22" required>
-                        <input type="hidden" name="idCuenta" value="<%= idCuenta %>">
+                        <input type="number" class="form-control" id="montoTransferencia" name="monto" min="1" max="<%= saldoCuenta %>" step="0.01" required>
                     </div>
                     <input type="hidden" name="usuarioId" value="<%= idUsuario %>">
                     <div class="modal-footer">
@@ -87,6 +86,35 @@
         </div>
     </div>
 </div>
+
+<!-- Modal de extracción de dinero -->
+<div class="modal fade" id="extraerDineroModal" tabindex="-1" aria-labelledby="extraerDineroLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extraerDineroLabel">Extraer Dinero</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="../../cuentas?method=extraer" method="POST">
+                    <div class="mb-3">
+                        <label for="montoExtraer" class="form-label">Monto a extraer:</label>
+                        <input type="number" class="form-control" id="montoExtraer" name="monto" min="1" max="<%= saldoCuenta %>" step="0.01" required>
+                    </div>
+
+                    <input type="hidden" name="usuarioId" value="<%= idUsuario %>">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Extraer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
 
 </body>
 </html>
