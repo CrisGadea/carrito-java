@@ -56,7 +56,7 @@ public class CompraServlet extends HttpServlet {
         try {
             // Insertar la orden en la base de datos
             ordenDAO.insert(nuevaOrden);
-
+            StringBuilder productosSinStock = new StringBuilder();
             // Vincular los productos del carrito con la orden
             carrito.stream().forEach(producto -> {
                 try {
@@ -66,21 +66,39 @@ public class CompraServlet extends HttpServlet {
                     ordenProducto.setCantidad(producto.getCantidad());
                     ordenProducto.setPrecio(producto.getPrecio());
                     ordenProductoDAO.insert(ordenProducto);
-                    if(ordenProducto.getIdProducto()==producto.getIdProducto()){
-                        Producto producto1=productoDAO.getById(producto.getIdProducto());
-                        if (producto1.getStock()-producto.getCantidad()<0){
+                    Producto producto1=productoDAO.getById(producto.getIdProducto());
+                    if (producto1.getStock()-producto.getCantidad()>0){
                         producto1.setStock(producto1.getStock()-producto.getCantidad());
                         productoDAO.update(producto1);
-                    }
+                    }else {
+                        if (productosSinStock.length() > 0) {
+                            productosSinStock.append(", ");
+                        }
+                        productosSinStock.append(producto1.getNombre()).append(" (stock: ").append(producto1.getStock()).append(")");
 
-                } }catch (SQLException e) {
+                        }
+
+                }catch (SQLException e) {
                     e.printStackTrace();
                 }
             });
+            if (productosSinStock.length() > 0) {
+                request.setAttribute("error", "No hay suficiente stock para los siguientes productos: " + productosSinStock.toString());
+                request.getRequestDispatcher("vistas/carrito/carrito.jsp").forward(request, response);
+                return;
+            }
             Cuenta cuenta=cuentaDAO.getByUserId((int)session.getAttribute("idUsuario"));
+           System.out.println("Uuario es: " + session.getAttribute("idUsuario"));
+            System.out.println("cuenta es: " + cuenta.getId());
             if (cuenta!=null){
+                if (cuenta.getSaldo()-nuevaOrden.getTotal()<0) {
+                    request.setAttribute("error", "Saldo insuficiente");
+                    request.getRequestDispatcher("vistas/carrito/carrito.jsp").forward(request, response);
+                    return;
+                }
                 cuenta.setSaldo(cuenta.getSaldo()-nuevaOrden.getTotal());
                 cuentaDAO.update(cuenta);
+                session.setAttribute("saldo", cuenta.getSaldo());
             }
             // Vaciar el carrito después de completar la compra
             session.removeAttribute("productosCarrito");

@@ -18,20 +18,23 @@
     <div class="row">
         <%
             List<ProductoCarrito> productosCarrito = (ArrayList<ProductoCarrito>) request.getAttribute("productosCarrito");
+            String error = (String) request.getAttribute("error");
 
-            AtomicReference<Double> subtotal;
+            // Inicializa subtotal en 0 para evitar errores de variable no inicializada
+            AtomicReference<Double> subtotal = new AtomicReference<>(0.0);
+
             if (productosCarrito != null && !productosCarrito.isEmpty()) {
-                subtotal = new AtomicReference<>((double) 0);
                 productosCarrito.forEach(product -> {
-                    subtotal.lazySet(subtotal.get() + product.getPrecio());
+                    subtotal.set(subtotal.get() + product.getPrecio());
                 });
+
                 for (ProductoCarrito productoCarrito : productosCarrito) {
         %>
 
         <!-- Card de Bootstrap para cada producto -->
         <div class="col-md-4 mb-4">
             <div class="card" style="width: 18rem;">
-                <img src="../../<%=productoCarrito.getUrlImagen()%>"
+                <img src="../<%=productoCarrito.getUrlImagen()%>"
                      class="card-img-top" alt="<%=productoCarrito.getNombre()%>">
                 <div class="card-body">
                     <h5 class="card-title"><%=productoCarrito.getNombre()%></h5>
@@ -40,51 +43,54 @@
                     <!-- Cantidad con botones de sumar/restar -->
                     <p class="card-text d-flex align-items-center">
                         Cantidad:
-                        <a href="
-                        <%=request.getContextPath() + "/carrito?productoId=" + productoCarrito.getIdProducto() + "&accion=restar&method=updateCantidad"%>"
+                        <a href="<%=request.getContextPath() + "/carrito?productoId=" + productoCarrito.getIdProducto() + "&accion=restar&method=updateCantidad"%>"
                            class="btn btn-secondary btn-sm mx-2">-</a>
                         <span><%=productoCarrito.getCantidad()%></span>
-                        <a href="
-                        <%=request.getContextPath() + "/carrito?productoId=" + productoCarrito.getIdProducto() + "&accion=sumar&method=updateCantidad"%>"
+                        <a href="<%=request.getContextPath() + "/carrito?productoId=" + productoCarrito.getIdProducto() + "&accion=sumar&method=updateCantidad"%>"
                            class="btn btn-secondary btn-sm mx-2">+</a>
                     </p>
 
                     <!-- Botón de eliminar producto -->
-                    <a href="
-                        <%=request.getContextPath() + "/carrito?productoId=" + productoCarrito.getIdProducto() + "&method=delete"%>"
+                    <a href="<%=request.getContextPath() + "/carrito?productoId=" + productoCarrito.getIdProducto() + "&method=delete"%>"
                        class="btn btn-danger mt-2">Eliminar</a>
                 </div>
             </div>
         </div>
 
         <%
-            }
+            } // Fin del for
+        } else { // Si el carrito está vacío
+        %>
 
-        } else {
-            subtotal = null;
-        %>
+        <!-- Mostrar error si está presente -->
+        <% if (error != null) { %>
+        <div class="alert alert-danger">
+            <%= error %>
+        </div>
+        <% } else { %>
         <p>No hay productos en el carrito.</p>
+        <% } %>
+
         <%
-            }
+            } // Fin del else
         %>
     </div>
-    <% if (subtotal != null) { %>
+
+    <!-- Mostrar subtotal solo si hay productos en el carrito -->
+    <% if (productosCarrito != null && !productosCarrito.isEmpty()) { %>
     <div class="mt-2">
-        <p class="text-center">Subtotal: $<%=subtotal%></p>
+        <p class="text-center">Subtotal: $<%=subtotal.get()%></p>
     </div>
-    <!-- Formulario para proceder con la compra -->
-<%--    <form action="<%=request.getContextPath() + "/procesarCompra"%>" method="POST" class="mt-4">--%>
-    <button type="button" class="btn btn-primary"  onclick="window.location.href='./comprar'">Proceder a la compra</button>
-<%--    </form>--%>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='./comprar'">Proceder a la compra</button>
     <% } %>
 
     <button type="button" class="btn btn-danger" onclick="window.location.href='./index.jsp'">Volver al Inicio</button>
 </div>
 
-
-<!-- Incluir Bootstrap JS (opcional para interactividad como modales, tooltips, etc.) -->
+<!-- Incluir Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

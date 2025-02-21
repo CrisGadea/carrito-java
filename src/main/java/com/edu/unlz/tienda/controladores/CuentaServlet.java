@@ -33,47 +33,15 @@ public class CuentaServlet extends HttpServlet {
                 System.out.println(saldoActual + " " + saldo);
                 cuenta.setSaldo(saldoActual+saldo);
                 cdao.update(cuenta);
-            } else {
-                cuenta = new Cuenta();
-                cuenta.setIdUsuario(Integer.parseInt(req.getParameter("usuarioId")));
-                cuenta.setSaldo(saldo);
-                var cbu=generarCBU();
-                cuenta.setCbu(cbu);
-                cdao.insert(cuenta);
-                Cuenta cuentaCreada = cdao.getByCbu(cbu);
-                session.setAttribute("idCuenta", cuentaCreada.getId());
+                session.setAttribute("saldo", cuenta.getSaldo());
             }
 
-            session.setAttribute("saldo", cuenta.getSaldo());
             resp.sendRedirect("vistas/usuario/cuenta.jsp");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-        public static String generarCBU() {
-            Random random = new Random();
-
-            // Prefijo fijo (banco y sucursal ficticios)
-            String prefijo = "12345678";
-
-            // Generar un número de cuenta aleatorio de 13 dígitos
-            String numeroCuenta = String.format("%013d", random.nextLong(9999999999999L));
-
-            // Calcular un dígito de verificación simple (módulo 10)
-            int digitoVerificador = calcularDigitoVerificador(prefijo + numeroCuenta);
-
-            // Formar el CBU completo
-            return prefijo + numeroCuenta + digitoVerificador;
-        }
-
-        private static int calcularDigitoVerificador(String cbuBase) {
-            int suma = 0;
-            for (char c : cbuBase.toCharArray()) {
-                suma += Character.getNumericValue(c);
-            }
-            return suma % 10; // Usa módulo 10 como verificación simple
-        }
 
 
 

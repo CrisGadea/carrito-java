@@ -35,9 +35,25 @@ public class ProductoDAO implements DAO<Producto> {
         }
 
         @Override
-        public void update(Producto modelo) throws SQLException {
-            // TODO Auto-generated method stub
+        public void update(Producto producto) throws SQLException {
+            Connection conn = Conexion.getConexion();
 
+            String query = "update productos";
+            query += " set nombre = ?, descripcion = ?, precio = ?, stock = ?, url = ?";
+            query += " where id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ps.setString(1, producto.getNombre());
+            ps.setString(2, producto.getDescripcion());
+            ps.setDouble(3, producto.getPrecio());
+            ps.setInt(4, producto.getStock());
+            ps.setString(5, producto.getUrlImg());
+            ps.setInt(6, producto.getId());
+
+            ps.executeUpdate();
+
+            conn.close();
         }
 
         @Override
@@ -45,7 +61,21 @@ public class ProductoDAO implements DAO<Producto> {
             // TODO Auto-generated method stub
 
         }
+        public void logicDelete(int id) throws SQLException {
+            Connection conn = Conexion.getConexion();
 
+            String query = "update productos";
+            query += " set eliminado = true";
+            query += " where id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+
+            conn.close();
+        }
         public Producto getByNombre(String nombre) throws SQLException {
             // TODO Auto-generated method stub
             Connection conn = Conexion.getConexion();
@@ -95,7 +125,7 @@ public class ProductoDAO implements DAO<Producto> {
             List<Producto>productos=new ArrayList<>();
             Connection conn = Conexion.getConexion();
 
-            String query = "select * from productos";
+            String query = "select * from productos where eliminado = false";
 
             PreparedStatement ps = conn.prepareStatement(query);
 

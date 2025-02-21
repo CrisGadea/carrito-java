@@ -114,6 +114,12 @@ public class CarritoServlet extends HttpServlet {
         var session = request.getSession();
         AtomicInteger totalCantidad= new AtomicInteger();
         List<ProductoCarrito> productosCarrito = (List<ProductoCarrito>) session.getAttribute("productosCarrito")!=null? (List<ProductoCarrito>) session.getAttribute("productosCarrito"):new ArrayList<>();
+        if (productosCarrito.size() == 0){
+            request.setAttribute("error", "El carrito está vacío. Agrega productos antes de comprar.");
+            System.out.println("pasa por el error" + request.getAttribute("error"));
+            request.getRequestDispatcher("vistas/carrito/carrito.jsp").forward(request, response);
+            return;
+        }
         productosCarrito.forEach(productoCarrito -> totalCantidad.addAndGet(productoCarrito.getCantidad()));
 
         session.setAttribute("productosCarrito", productosCarrito);

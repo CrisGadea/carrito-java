@@ -13,6 +13,7 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -59,9 +60,17 @@ public class ProductoServlet extends HttpServlet {
             if (request.getParameter("method")!=null && request.getParameter("method").equals("update")){
                 updateProducto(request, response);
             } else {
+                if (request.getParameter("method")!=null && request.getParameter("method").equals("delete")){
+                    deleteProducto(request, response);
+                } else {
                 System.out.println("pasa por insert de producto");
-                var producto = pdao.getByNombre(request.getParameter("nombre"));
-                if (producto != null) {
+                    Producto producto = null;
+                    try {
+                        producto = pdao.getByNombre(request.getParameter("nombre"));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (producto != null) {
                     throw new RuntimeException("ya existe el producto con id: " + request.getParameter("id"));
                 }
                 // Obtener la parte del archivo
@@ -78,7 +87,7 @@ public class ProductoServlet extends HttpServlet {
                 pdao.insert(producto);
                 var productos = pdao.getAll();
                 session.setAttribute("productos", productos);
-            }
+            }}
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -108,11 +117,27 @@ public class ProductoServlet extends HttpServlet {
             if (request.getParameter("stock")!=""){
                 producto.setStock(Integer.parseInt(request.getParameter("stock")));
             };
+            if (request.getParameter("urlImg")!=""){
+                producto.setUrlImg(request.getParameter("urlImg"));
+            };
             pdao.update(producto);
             var productos = pdao.getAll();
 
-            productos.add(producto);
-            request.setAttribute("productos", productos);
+            request.getSession().setAttribute("productos", productos);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void deleteProducto(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            var producto = pdao.getById(Integer.parseInt(request.getParameter("id")));
+            if (producto == null){
+                throw new RuntimeException("No se encontró el producto con id: " + request.getParameter("id"));
+            };
+            pdao.logicDelete(producto.getId());
+            var productos = pdao.getAll();
+
+            request.getSession().setAttribute("productos", productos);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
